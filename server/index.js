@@ -9,10 +9,10 @@ import ratingRoutes from "./routes/ratingRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import cardRoutes from "./routes/cardRoutes.js";
 
-const ProfImageUploads = "./uploads/profileImage";
+/* const ProfImageUploads = "./uploads/profileImage";
 if (!fs.existsSync(ProfImageUploads)) {
   fs.mkdirSync(ProfImageUploads);
-}
+} */
 
 const app = express();
 
