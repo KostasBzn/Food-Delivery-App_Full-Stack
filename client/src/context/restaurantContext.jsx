@@ -1,7 +1,6 @@
 import axios from "../config/axios.js";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../config/api.js";
 
 export const RestaurantContext = createContext();
 
@@ -15,12 +14,14 @@ const RestaurantProvider = ({ children }) => {
   const [favourite, setFavourite] = useState([]);
   const [itemCounts, setItemCounts] = useState({});
 
+  const baseURL = import.meta.env.VITE_BASE_URL;
+
   const navigate = useNavigate();
 
-  // fetching: all restaurants, rating for a restaurant,
+  // fetching: all restaurants
   useEffect(() => {
     fetchRestaurants();
-    //getRatingsForRestaurant(restaurants?._id);
+
   }, []);
 
   //fetch the restaurants by category
@@ -44,7 +45,6 @@ const RestaurantProvider = ({ children }) => {
 
   const handleRestaurantsCategory = (category) => {
     fetchRestaurants(category);
-    console.log("clicked");
   };
 
   //function to reset filter by category
@@ -134,15 +134,19 @@ const RestaurantProvider = ({ children }) => {
 
       setPlacedOrders(newOrder.data);
       setUserAddedOrders([]);
-      navigate("/checkout");
-      console.log(newOrder.data);
+      if (newOrder.data.success) {
+        navigate("/");
+      } else {
+        alert("transaction not successful, please try again");
+      }
+
     } catch (error) {
       console.log(error);
     }
   };
 
   // Increment order quantity
-  const handleIncrement = (itemId) => {
+  const handleIncrement = (itemId, itemPrice) => {
     setItemCounts((prevCounts) => ({
       ...prevCounts,
       [itemId]: (prevCounts[itemId] || 0) + 1,
@@ -159,9 +163,12 @@ const RestaurantProvider = ({ children }) => {
             : item
         );
       } else {
-        return [...previousOrders, { itemId, quantity: 1 }];
+        return [...previousOrders, { itemId, price: itemPrice, quantity: 1 }];
       }
+
     });
+    localStorage.setItem("ShoppingCart", JSON.stringify(userAddedOrders));
+
   };
 
   // decrement order quantity

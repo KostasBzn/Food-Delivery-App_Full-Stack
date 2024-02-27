@@ -6,8 +6,9 @@ import MenuItemCard from "../components/MenuItemCard";
 import { useLocation } from "react-router-dom";
 
 function DescriptionPage() {
-  const { restaurant, findRestaurant } = useContext(RestaurantContext);
+  const { restaurant, findRestaurant, userAddedOrders, setUserAddedOrders } = useContext(RestaurantContext);
   const { user, handleFavourites } = useAuthContext();
+  const [isFavorite, setIsFavorite] = useState();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -15,6 +16,22 @@ function DescriptionPage() {
 
   useEffect(() => {
     findRestaurant(restaurantId);
+     }, [restaurantId]);
+
+  useEffect(() => {
+    setIsFavorite(
+      user?.favourites.map((item) => item._id).includes(restaurantId) ||
+        user?.favourites.includes(restaurantId)
+    );
+    console.log("user==>>", user);
+  }, [user]);
+
+  useEffect(() => {
+    const storedShoppingCart = localStorage.getItem("ShoppingCart");
+    if (storedShoppingCart) {
+      const parsedShoppingCart = JSON.parse(storedShoppingCart);
+      setUserAddedOrders(parsedShoppingCart);
+    }
   }, []);
 
   return (
@@ -22,7 +39,7 @@ function DescriptionPage() {
       <h2 className=" text-6xl font-bold">{restaurant?.name}</h2>
       <div className=" flex gap-5 text-lg font-bold mt-5 ">
         <p> {restaurant?.category} cuisine</p>
-        <div className=" flex justify-center items-center ">
+        <div className=" flex justify-center items-center  gap-4">
           <svg
             className={`w-7 h-7 text-yellow-500   `}
             xmlns="http://www.w3.org/2000/svg"
@@ -37,11 +54,7 @@ function DescriptionPage() {
             <p>Not review yet!!</p>
           )}
           <button onClick={() => handleFavourites(restaurant?._id, user._id)}>
-            {user?.favourites?.includes(restaurant?._id) ? (
-              <Heart style={{ fill: "red" }} />
-            ) : (
-              <Heart />
-            )}
+            {isFavorite ? <Heart style={{ fill: "red" }} /> : <Heart />}
           </button>
         </div>
       </div>

@@ -9,10 +9,10 @@ import ratingRoutes from "./routes/ratingRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import cardRoutes from "./routes/cardRoutes.js";
 
-const ProfImageUploads = "./uploads/profileImage";
+/* const ProfImageUploads = "./uploads/profileImage";
 if (!fs.existsSync(ProfImageUploads)) {
   fs.mkdirSync(ProfImageUploads);
-}
+} */
 
 const app = express();
 
@@ -20,6 +20,11 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
+const corsOptions = {
+  origin: "https://food-delivery-app-client-pi.vercel.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
 app.use(cors());
 
 connectDB();
