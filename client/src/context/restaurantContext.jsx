@@ -21,6 +21,7 @@ const RestaurantProvider = ({ children }) => {
   // fetching: all restaurants
   useEffect(() => {
     fetchRestaurants();
+
   }, []);
 
   //fetch the restaurants by category
@@ -133,8 +134,12 @@ const RestaurantProvider = ({ children }) => {
 
       setPlacedOrders(newOrder.data);
       setUserAddedOrders([]);
-      navigate("/checkout");
-      console.log(newOrder.data);
+      if (newOrder.data.success) {
+        navigate("/");
+      } else {
+        alert("transaction not successful, please try again");
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -160,7 +165,10 @@ const RestaurantProvider = ({ children }) => {
       } else {
         return [...previousOrders, { itemId, price: itemPrice, quantity: 1 }];
       }
+
     });
+    localStorage.setItem("ShoppingCart", JSON.stringify(userAddedOrders));
+
   };
 
   // decrement order quantity
