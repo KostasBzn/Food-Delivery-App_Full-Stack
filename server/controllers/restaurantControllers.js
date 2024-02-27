@@ -3,11 +3,12 @@ import Restaurant from "../models/restaurantSchema.js";
 //Add new restaurant
 export const handleAddNewReastaurant = async (req, res) => {
   try {
-    const { name, description, address, menu, category } = req.body;
+    const { name, description, info, address, menu, category } = req.body;
 
     const newReastaurant = new Restaurant({
       name,
       description,
+      info,
       address,
       menu,
       category,
@@ -58,41 +59,14 @@ export const getAllRestaurants = async (req, res) => {
   }
 };
 
-//Update a restaurant
-export const updateRestaurant = async (req, res) => {
-  const { restaurantId } = req.params;
-
-  try {
-    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
-      restaurantId,
-      { $set: req.body },
-      { new: true }
-    );
-
-    if (!updatedRestaurant) {
-      return res.send({ success: false, message: "Restaurant not found" });
-    }
-
-    console.log("Restaurant updated successfully:", updatedRestaurant);
-    res.send({
-      success: true,
-      restaurant: updatedRestaurant,
-      message: "Restaurant updated successfully",
-    });
-  } catch (error) {
-    console.error("Error updating the restaurant", error.message);
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
 //find restaurant by id
 export const findRestaurant = async (req, res) => {
   try {
     //const restaurantId = req.body;
-    const {restaurantId} = req.params;
+    const { restaurantId } = req.params;
     console.log(restaurantId);
-    
-    const restaurant = await Restaurant.findById(restaurantId );
+
+    const restaurant = await Restaurant.findById(restaurantId);
 
     res.send({ success: true, restaurant });
   } catch (error) {

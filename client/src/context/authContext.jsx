@@ -183,18 +183,44 @@ const AuthProvider = ({ children }) => {
   const handleFavourites = async (restaurantId, userId) => {
     const body = {
       userId,
+      restaurantId,
     };
-
+    console.log(restaurantId, userId);
     try {
       const response = await axios.put(
         baseURL + `/users/favourite/${restaurantId}`,
         body
       );
-
       setUser(response.data.user);
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify(response.data.user.favourites)
+      );
       console.log("===> add fav", response.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  //delete user
+  const deleteUser = async (userId, password) => {
+    const userData = { userId, password };
+    try {
+      const response = await axios.delete(baseURL + `/users/delete/`, {
+        data: userData,
+      });
+
+      if (response.data.success) {
+        localStorage.removeItem("token");
+        alert("Your accound deleted sucessfully");
+        navigate("/signin");
+      }
+
+      console.log("User deleted:", response.data.message);
+    } catch (error) {
+      console.log(error);
+
+      setErrors(error.response.data.error);
     }
   };
 
@@ -214,6 +240,7 @@ const AuthProvider = ({ children }) => {
         card,
         handleFavourites,
         fetchCard,
+        deleteUser,
       }}
     >
       {children}
