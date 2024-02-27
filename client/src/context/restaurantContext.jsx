@@ -1,7 +1,6 @@
 import axios from "../config/axios.js";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../config/api.js";
 
 export const RestaurantContext = createContext();
 
@@ -14,6 +13,8 @@ const RestaurantProvider = ({ children }) => {
   const [placedOrders, setPlacedOrders] = useState(null);
   const [favourite, setFavourite] = useState([]);
   const [itemCounts, setItemCounts] = useState({});
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -153,7 +154,7 @@ const RestaurantProvider = ({ children }) => {
       if (existingOrderItem) {
         return previousOrders.map((item) =>
           item.itemId === itemId
-            ? { ...item,  quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
