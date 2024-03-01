@@ -13,6 +13,14 @@
 
   Note: Unfortunately profile picture update is not working in the deployed app because the images are stored localy, an update in the future using Cloudinary is in our schedule.
 
---A beginner group project from me and my colleague [Federico](https://github.com/ocirede) working together and doing our first steps in full stack applications--
+--A beginner group project doing our first steps in full stack applications--
+
+- **Collaborators:**
+    - [Federico](https://github.com/ocirede)
+    - [Kostas](https://github.com/KostasBzn)
+ 
+    
+
+
 
 Click [here](https://food-delivery-app-client-pi.vercel.app/) to visit the website.
