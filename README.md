@@ -1,26 +1,35 @@
-### **Full Stack Food Delivery App**
+# 🍔 **Full Stack Food Delivery App**
 
-- **Features:**
+A full-stack food delivery application developed as part of our group project. The app allows users to register, order food, and manage their personal information, all while enabling restaurants to showcase their menus.
 
-  - Register new user - Login user - Delete user / error handling
-  - Update user's information (address, payment method, profile picture)
-  - Search restaurant by category of food
-  - Restaurant menu
-  - Place a new order - product quantity handling
-  - Order history
-  - Rating system (average restaurant rating, add new rating for past orders from order history)
-  - View old ratings from users for a restaurant
+## 🌟 **Features**
+- **User Management**: 
+  - Register new user, login, and delete user with error handling.
+  - Update user information, including address, payment method, and profile picture.
+- **Restaurant Search**: 
+  - Search restaurants by food category.
+  - View restaurant menus.
+- **Order Management**: 
+  - Place new orders with product quantity handling.
+  - View order history.
+- **Rating System**: 
+  - Add new ratings for past orders.
+  - View average ratings and user reviews for restaurants.
 
-  Note: Unfortunately profile picture update is not working in the deployed app because the images are stored localy, an update in the future using Cloudinary is in our schedule.
+**Note**: Profile picture updates are not functional in the deployed app due to local image storage. Future updates will integrate Cloudinary for image handling.
 
---A beginner group project doing our first steps in full stack applications--
-
-- **Collaborators:**
-    - [Federico](https://github.com/ocirede)
-    - [Kostas](https://github.com/KostasBzn)
- 
-    
-
-
-
+## 🚀 **Live Demo**
 Click [here](https://food-delivery-app-client-pi.vercel.app/) to visit the website.
+
+## 🛠 **Technologies Used**
+- **Frontend**: React
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+- **Image Storage**: Local (planned update to Cloudinary)
+
+## 🤝 **Collaborators**
+- [Federico](https://github.com/ocirede)
+- [Kostas](https://github.com/KostasBzn)
+
+*This was a beginner group project where we took our first steps in full-stack application development.*
